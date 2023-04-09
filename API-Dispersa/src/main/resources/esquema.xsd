@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<!-- Created with Liquid Technologies Online Tools 1.0 (https://www.liquid-technologies.com) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="https://t4is.uv.mx/saludos" xmlns:tns="https://t4is.uv.mx/saludos" elementFormDefault="qualified">
+  <xs:element name="GuardarRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="nombre" type="xs:string" />
+        <xs:element name="semestre" type="xs:int" />
+        <xs:element name="sexo" type="xs:string" />
+        <xs:element name="carrera" type="xs:string" />
+        <xs:element name="fechaNacimiento" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GuardarResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="respuesta" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BuscarPorIdRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BuscarPorIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="nombre" type="xs:string" />
+        <xs:element name="semestre" type="xs:int" />
+        <xs:element name="sexo" type="xs:string" />
+        <xs:element name="carrera" type="xs:string" />
+        <xs:element name="fechaNacimiento" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:int" />
+        <xs:element name="nombre" type="xs:string" />
+        <xs:element name="semestre" type="xs:int" />
+        <xs:element name="sexo" type="xs:string" />
+        <xs:element name="carrera" type="xs:string" />
+        <xs:element name="fechaNacimiento" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="respuesta" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BorrarRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BorrarResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="respuesta" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BuscarPorCarreraRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="carrera" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BuscarPorCarreraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="nombre" type="xs:string" />
+        <xs:element name="semestre" type="xs:int" />
+        <xs:element name="sexo" type="xs:string" />
+        <xs:element name="carrera" type="xs:string" />
+        <xs:element name="fechaNacimiento" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BuscarPorSexoRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="sexo" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BuscarPorSexoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="nombre" type="xs:string" />
+        <xs:element name="semestre" type="xs:int" />
+        <xs:element name="sexo" type="xs:string" />
+        <xs:element name="carrera" type="xs:string" />
+        <xs:element name="fechaNacimiento" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BuscarPorEdadRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="filtro" type="xs:string" />
+        <xs:element name="edad" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BuscarPorEdadResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="nombre" type="xs:string" />
+        <xs:element name="semestre" type="xs:int" />
+        <xs:element name="sexo" type="xs:string" />
+        <xs:element name="carrera" type="xs:string" />
+        <xs:element name="fechaNacimiento" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MostrarTodoRequest" />
+  <xs:element name="MostrarTodoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="respuesta" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
