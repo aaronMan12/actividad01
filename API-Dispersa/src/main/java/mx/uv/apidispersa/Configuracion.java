@@ -28,12 +28,12 @@ public class Configuracion extends WsConfigurerAdapter{
         return new ServletRegistrationBean<>(servlet, "/ws/*");
     }
 
-    @Bean(name = "saludos")
+    @Bean(name = "alumnos")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema saludosSchema) {
         DefaultWsdl11Definition wsdl = new DefaultWsdl11Definition();
-        wsdl.setPortTypeName("saludosPort");        
+        wsdl.setPortTypeName("alumnosPort");        
         wsdl.setLocationUri("/ws");   
-        wsdl.setTargetNamespace("https://t4is.uv.mx/saludos");        
+        wsdl.setTargetNamespace("https://t4is.uv.mx/alumnos");        
         wsdl.setSchema(saludosSchema);
         return wsdl;
     }

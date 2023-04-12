@@ -1,117 +1,131 @@
 package mx.uv.apidispersa;
 
-// import java.util.Optional;
+import java.util.Optional;
 
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.ws.server.endpoint.annotation.Endpoint;
-// import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
-// import org.springframework.ws.server.endpoint.annotation.RequestPayload;
-// import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ws.server.endpoint.annotation.Endpoint;
+import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
+import org.springframework.ws.server.endpoint.annotation.RequestPayload;
+import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-// import https.t4is_uv_mx.saludos.BuscarPorIdResponse;
-// import https.t4is_uv_mx.saludos.BuscarTodoResponse;
-// import https.t4is_uv_mx.saludos.ActualizarRequest;
-// import https.t4is_uv_mx.saludos.ActualizarResponse;
-// import https.t4is_uv_mx.saludos.BorrarRequest;
-// import https.t4is_uv_mx.saludos.BorrarResponse;
-// import https.t4is_uv_mx.saludos.BuscarPorIdRequest;
-// import https.t4is_uv_mx.saludos.SaludarRequest;
-// import https.t4is_uv_mx.saludos.SaludarResponse;
+import https.t4is_uv_mx.alumnos.ActualizarRequest;
+import https.t4is_uv_mx.alumnos.ActualizarResponse;
+import https.t4is_uv_mx.alumnos.BorrarRequest;
+import https.t4is_uv_mx.alumnos.BorrarResponse;
+import https.t4is_uv_mx.alumnos.BuscarPorIdRequest;
+import https.t4is_uv_mx.alumnos.BuscarPorIdResponse;
+import https.t4is_uv_mx.alumnos.GuardarRequest;
+import https.t4is_uv_mx.alumnos.GuardarResponse;
 
-// @Endpoint
-// public class EndPoint {
-//     @Autowired
-//     private ISaludadores isaludador;
+@Endpoint
+public class EndPoint {
+    @Autowired
+    private IAlumnos ialumno;
 
-//     @PayloadRoot(namespace = "https://t4is.uv.mx/saludos", localPart = "SaludarRequest")
-//     @ResponsePayload
-//     public SaludarResponse Saludar(@RequestPayload SaludarRequest peticion) {
-//         SaludarResponse respuesta = new SaludarResponse();
-//         Saludador saludador = new Saludador();
+    @PayloadRoot(namespace = "https://t4is.uv.mx/alumnos", localPart = "GuardarRequest")
+    @ResponsePayload
+    public GuardarResponse Guardar(@RequestPayload GuardarRequest peticion) {
+        GuardarResponse respuesta = new GuardarResponse();
+        Alumno alumno = new Alumno();
 
-//         saludador.setNombre(peticion.getNombre());
+        alumno.setNombre(peticion.getNombre());
+        alumno.setSemestre(peticion.getSemestre());
+        alumno.setSexo(peticion.getSexo());
+        alumno.setCarrera(peticion.getCarrera());
+        alumno.setFechaNacimiento(peticion.getFechaNacimiento());
 
-//         isaludador.save(saludador);
+        ialumno.save(alumno);
 
-//         respuesta.setRespuesta("Hola " + peticion.getNombre());
+        respuesta.setRespuesta("Alumno guardado con éxito");
 
-//         return respuesta;
-//     }
+        return respuesta;
+    }
 
-//     @PayloadRoot(namespace = "https://t4is.uv.mx/saludos", localPart = "BuscarPorIdRequest")
-//     @ResponsePayload
-//     public BuscarPorIdResponse Buscar(@RequestPayload BuscarPorIdRequest peticion) {
-//         BuscarPorIdResponse respuesta = new BuscarPorIdResponse();
+    @PayloadRoot(namespace = "https://t4is.uv.mx/alumnos", localPart = "BuscarPorIdRequest")
+    @ResponsePayload
+    public BuscarPorIdResponse BuscarPorId(@RequestPayload BuscarPorIdRequest peticion) {
+        BuscarPorIdResponse respuesta = new BuscarPorIdResponse();
 
-//         Optional<Saludador> resultado = isaludador.findById(peticion.getId());
+        Optional<Alumno> resultado = ialumno.findById(peticion.getId());
+
+        respuesta.setNombre(resultado.get().getNombre());
+        respuesta.setSemestre(resultado.get().getSemestre());
+        respuesta.setSexo(resultado.get().getSexo());
+        respuesta.setCarrera(resultado.get().getCarrera());
+        respuesta.setFechaNacimiento(resultado.get().getFechaNacimiento());
+
+        return respuesta;
+    }
+
+    @PayloadRoot(namespace = "https://t4is.uv.mx/alumnos", localPart = "ActualizarRequest")
+    @ResponsePayload
+    public ActualizarResponse Actualizar(@RequestPayload ActualizarRequest peticion) {
+        ActualizarResponse respuesta = new ActualizarResponse();
+
+        Optional<Alumno> resultado = ialumno.findById(peticion.getId());
+
+        if(!resultado.isPresent()) {
+            return null;
+        }
+
+        Alumno alumno = resultado.get();
+
+        if(!peticion.getNombre().isBlank()) {
+            alumno.setNombre(peticion.getNombre());
+        }
+
+        if(peticion.getSemestre() != 0) {
+            alumno.setSemestre(peticion.getSemestre());
+        }
+
+        if(!peticion.getSexo().isBlank()) {
+            alumno.setSexo(peticion.getSexo());
+        }
+
+        if(!peticion.getCarrera().isBlank()) {
+            alumno.setCarrera(peticion.getCarrera());
+        }
         
-//         if(!resultado.isPresent()){
-//             respuesta.setRespuesta("Saludo no encontrado");
-            
-//             return respuesta;
-//         }
+        if(!peticion.getFechaNacimiento().isBlank()) {
+            alumno.setFechaNacimiento(peticion.getFechaNacimiento());
+        }
+
+        ialumno.save(alumno);
+        respuesta.setRespuesta("Actualización realizada exitosamente");
+
+        return respuesta;
+    }
+
+    @PayloadRoot(namespace = "https://t4is.uv.mx/alumnos", localPart = "BorrarRequest")
+    @ResponsePayload
+    public BorrarResponse Actualizar(@RequestPayload BorrarRequest peticion) {
+        BorrarResponse respuesta = new BorrarResponse();
+
+        Optional<Alumno> resultado = ialumno.findById(peticion.getId());
+
+        if(!resultado.isPresent()){
+            return null;
+        }
         
-//         Saludador saludador = resultado.get();
+        ialumno.delete(resultado.get());
+        respuesta.setRespuesta("Se borró exitosamente");
 
-//         respuesta.setRespuesta("Hola " + saludador.getNombre());
 
-//         return respuesta;
-//     }
+        return respuesta;
+    }
 
-//     @PayloadRoot(namespace = "https://t4is.uv.mx/saludos", localPart = "ActualizarRequest")
-//     @ResponsePayload
-//     public ActualizarResponse Actualizar(@RequestPayload ActualizarRequest peticion) {
-//         ActualizarResponse respuesta = new ActualizarResponse();
+    // @PayloadRoot(namespace = "https://t4is.uv.mx/saludos", localPart =
+    // "BuscarTodoRequest")
+    // @ResponsePayload
+    // public BuscarTodoResponse Borrar() {
+    // BuscarTodoResponse respuesta = new BuscarTodoResponse();
 
-//         Optional<Saludador> resultado = isaludador.findById(peticion.getId());
+    // Iterable<Saludador> resultado = isaludador.findAll();
 
-//         if(!resultado.isPresent()) {
-//             respuesta.setRespuesta("Saludo no encontrado no encontrado");
+    // for (Saludador saludador : resultado) {
+    // respuesta.getRespuesta().add(saludador.getNombre());
+    // }
 
-//             return respuesta;
-//         }
-        
-//         Saludador saludador = resultado.get();
-//         saludador.setNombre(peticion.getNombre());
-
-//         isaludador.save(saludador);
-//         respuesta.setRespuesta("Actualización realizada con éxito");
-
-//         return respuesta;
-//     }
-
-//     @PayloadRoot(namespace = "https://t4is.uv.mx/saludos", localPart = "BorrarRequest")
-//     @ResponsePayload
-//     public BorrarResponse Borrar(@RequestPayload BorrarRequest peticion) {
-//         BorrarResponse respuesta = new BorrarResponse();
-
-//         Optional<Saludador> resultado = isaludador.findById(peticion.getId());
-
-//         if(!resultado.isPresent()) {
-//             respuesta.setRespuesta("Saludo no encontrado no encontrado");
-
-//             return respuesta;
-//         }
-
-//         Saludador saludador = resultado.get();
-        
-//         isaludador.delete(saludador);
-//         respuesta.setRespuesta("Eliminado con éxito");
-
-//         return respuesta;
-//     }
-
-//     @PayloadRoot(namespace = "https://t4is.uv.mx/saludos", localPart = "BuscarTodoRequest")
-//     @ResponsePayload
-//     public BuscarTodoResponse Borrar() {
-//         BuscarTodoResponse respuesta = new BuscarTodoResponse();
-        
-//         Iterable<Saludador> resultado = isaludador.findAll();
-
-//         for (Saludador saludador : resultado) {
-//             respuesta.getRespuesta().add(saludador.getNombre());
-//         }
-
-//         return respuesta;
-//     }
-// }
+    // return respuesta;
+    // }
+}
