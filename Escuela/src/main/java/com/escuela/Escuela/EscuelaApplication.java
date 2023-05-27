@@ -42,7 +42,6 @@ public String borraProfe(@PathVariable String nombre){
 
 @PutMapping("/Salones/Profe")
 public String actualizaProfe(){
-
 	return "Profe actualizado";
 }
 
