@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.annotation.JacksonInject.Value;
+
 
 @RestController
 @RequestMapping("/videojuegos")
@@ -63,7 +62,17 @@ public class VideojuegoApplication {
 
 	}
 
-	
+	@DeleteMapping(path = "/{id}")
+    public String deleteVideojuegosbyId(@PathVariable("id") int id){
+		boolean ok = this.videojuegosService.deleteVideojuegosById(id);
+		if(ok){
+			return "Videojuego eliminado con id "+id;
+		}else{
+			return "No se puedo elimnar el videojuego con id "+id;
+		}
 
+	}
+
+	
 
 }

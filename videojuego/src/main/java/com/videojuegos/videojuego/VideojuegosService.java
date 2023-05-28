@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class VideojuegosService {
     
@@ -37,7 +38,17 @@ public class VideojuegosService {
         return juego;
     }
 
-    
+    public boolean deleteVideojuegosById(int id){
+        try{
+         controller.deleteById(id);
+         return true;
 
+        }catch(Exception e){
+         return false;
+        }
+        
+    }
+
+   
 
 }
