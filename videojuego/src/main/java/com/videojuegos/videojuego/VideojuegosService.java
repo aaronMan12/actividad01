@@ -24,5 +24,20 @@ public class VideojuegosService {
         return controller.findById(id);
     }
 
+    public Videojuegos updateById(Videojuegos request, int id){
+        Videojuegos juego = controller.findById(id).get();
+        juego.setNombre(request.getNombre());
+        juego.setPlataforma(request.getPlataforma());
+        juego.setMarca(request.getMarca());
+        juego.setFormato(request.getFormato());
+        juego.setDesarrollador(request.getDesarrollador());
+        juego.setPrecio(request.getPrecio());
+        controller.save(juego);
+
+        return juego;
+    }
+
+    
+
 
 }
