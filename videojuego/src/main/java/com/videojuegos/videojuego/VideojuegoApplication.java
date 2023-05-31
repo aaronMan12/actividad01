@@ -35,7 +35,7 @@ public class VideojuegoApplication {
 	}
 
 	
-	/*@GetMapping(value = "/videojuegos", params = "formato")
+	@GetMapping("{formato}")
 	public ArrayList<Videojuegos>getVideojuegosF(@PathVariable String formato){
         ArrayList<Videojuegos> format = new ArrayList<>();
 		for (Videojuegos c1:videojuegosService.getTodosVideojuegos()){
@@ -44,14 +44,41 @@ public class VideojuegoApplication {
 			}
 		}
 		return format;
-	}*/
-
-	@GetMapping(path = "/{id}")
+	}
+	
+	
+	@GetMapping("/id/{id}")
 	public Optional<Videojuegos> getVideojuegosbyId(@PathVariable("id") int id){
 		return this.videojuegosService.getById(id);
 	}
-	 
 
+	@GetMapping("/nombre/{nombre}")
+	public ArrayList<Videojuegos> getVideojuegosbyNombre(@PathVariable("nombre") String nombre){
+		return this.videojuegosService.getByNombre(nombre);
+	}
+
+	@GetMapping("/plataforma/{plataforma}")
+	public ArrayList<Videojuegos> getVideojuegosbyPlataforma(@PathVariable("plataforma") String plataforma){
+		return this.videojuegosService.getByPlataforma(plataforma);
+	}
+
+	@GetMapping("/marca/{marca}")
+	public ArrayList<Videojuegos> getVideojuegosbyMarca(@PathVariable("marca") String marca){
+		return this.videojuegosService.getByMarca(marca);
+	}
+
+	@GetMapping("/desarrollador/{desarrollador}")
+	public ArrayList<Videojuegos> getVideojuegosbyDesarrollador(@PathVariable("desarrollador") String desarrollador){
+		return this.videojuegosService.getByDesarrollador(desarrollador);
+	}
+
+	@GetMapping("/precio/{precio}")
+	public ArrayList<Videojuegos> getVideojuegosbyPrecio(@PathVariable("precio") Integer precio){
+		return this.videojuegosService.getByPrecio(precio);
+	}
+
+	
+	 
 	@PostMapping Videojuegos saveVideojuegos(@RequestBody Videojuegos videojuegos){
 		return this.videojuegosService.saveVideojuegos(videojuegos);
 	}
