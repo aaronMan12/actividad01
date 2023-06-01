@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/consolas")
 public class ConsolaApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(ConsolaApplication.class, args);
 	}
@@ -30,19 +29,23 @@ public class ConsolaApplication {
 
 	}
 
-	@GetMapping("{plataforma}")
-	public ArrayList<Consola> getConsolasPP(@PathVariable String plataforma) {
-		ArrayList<Consola> plataf = new ArrayList<>();
-		for (Consola c : consolaService.getTodasConsolas()) {
-			if (c.getPlataforma().equals(plataforma)) {
-				plataf.add(c);
-			}
-		}
-		return plataf;
+	@GetMapping("/Modelo/{modelo}")
+	public ArrayList<Consola> getConsolFM(@PathVariable("modelo") String modelo){
+		return this.consolaService.getForModel(modelo);
+	}
+
+	@GetMapping("/Plataforma/{plataforma}")
+	public ArrayList<Consola> getConsolFP(@PathVariable("plataforma") String plataforma){
+		return this.consolaService.getForPlataform(plataforma);
+	}
+
+	@GetMapping("/Precio/{precio}")
+	public ArrayList<Consola> getConsolFPr(@PathVariable("precio") int precio){
+		return this.consolaService.getForPrice(precio);
 	}
 
 	@PostMapping
-	public Consola saveCoansola(@RequestBody Consola consola) {
+	public Consola saveConsola(@RequestBody Consola consola) {
 		return this.consolaService.saveConsola(consola);
 	}
 
