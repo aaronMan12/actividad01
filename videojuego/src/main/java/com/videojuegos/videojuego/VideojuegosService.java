@@ -3,75 +3,87 @@ package com.videojuegos.videojuego;
 import java.util.ArrayList;
 import java.util.Optional;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class VideojuegosService {
-    
     @Autowired
+    VideojuegoRepository repositorio;
 
-    Controller controller;
-    public ArrayList<Videojuegos>getTodosVideojuegos(){
-        return (ArrayList<Videojuegos>) controller.findAll();
+    public ArrayList<Videojuego> getTodosVideojuegos() {
+        return (ArrayList<Videojuego>) repositorio.findAll();
     }
 
-    public Videojuegos saveVideojuegos(Videojuegos videojuegos){
-        return controller.save(videojuegos);
+    public Videojuego saveVideojuegos(Videojuego videojuegos) {
+        return repositorio.save(videojuegos);
     }
 
-    public Optional<Videojuegos> getById(int id){
-        return controller.findById(id);
+    public Optional<Videojuego> getById(int id) {
+        return repositorio.findById(id);
     }
 
-    public ArrayList<Videojuegos> getByNombre(String nombre){
-        return controller.findByNombre(nombre);
+    public ArrayList<Videojuego> getByNombre(String nombre) {
+        return repositorio.findByNombre(nombre);
     }
 
-    public ArrayList<Videojuegos> getByDesarrollador(String desarrollador){
-        return controller.findByDesarrollador(desarrollador);
+    public ArrayList<Videojuego> getByDesarrollador(String desarrollador) {
+        return repositorio.findByDesarrollador(desarrollador);
     }
 
-    public ArrayList<Videojuegos> getByPlataforma(String plataforma){
-        return controller.findByPlataforma(plataforma);
+    public ArrayList<Videojuego> getByPlataforma(String plataforma) {
+        return repositorio.findByPlataforma(plataforma);
     }
 
-    public ArrayList<Videojuegos> getByMarca(String marca){
-        return controller.findByMarca(marca);
+    public ArrayList<Videojuego> getByPrecio(Integer precio) {
+        return repositorio.findByPrecio(precio);
     }
 
-    public ArrayList<Videojuegos> getByPrecio(Integer precio){
-        return controller.findByPrecio(precio);
+    public ArrayList<Videojuego> getByFormato(String formato) {
+        return repositorio.findByFormato(formato);
     }
 
+    public Videojuego updateById(Videojuego request, int id) {
+        Optional<Videojuego> busqueda = repositorio.findById(id);
 
+        if (busqueda.isPresent()) {
+            Videojuego juego = busqueda.get();
 
-    public Videojuegos updateById(Videojuegos request, int id){
-        Videojuegos juego = controller.findById(id).get();
-        juego.setNombre(request.getNombre());
-        juego.setPlataforma(request.getPlataforma());
-        juego.setMarca(request.getMarca());
-        juego.setFormato(request.getFormato());
-        juego.setDesarrollador(request.getDesarrollador());
-        juego.setPrecio(request.getPrecio());
-        controller.save(juego);
+            if (!request.getNombre().isEmpty()) {
+                juego.setNombre(request.getNombre());
+            }
 
-        return juego;
-    }
+            if (!request.getPlataforma().isEmpty()) {
+                juego.setPlataforma(request.getPlataforma());
+            }
 
-    public boolean deleteVideojuegosById(int id){
-        try{
-         controller.deleteById(id);
-         return true;
+            if (!request.getFormato().isEmpty()) {
+                juego.setFormato(request.getFormato());
+            }
 
-        }catch(Exception e){
-         return false;
+            if (!request.getDesarrollador().isEmpty()) {
+                juego.setDesarrollador(request.getDesarrollador());
+            }
+
+            if (request.getPrecio() != juego.getPrecio()) {
+                juego.setPrecio(request.getPrecio());
+            }
+
+            repositorio.save(juego);
+
+            return juego;
         }
-        
+
+        return null;
     }
 
-   
+    public boolean deleteVideojuegosById(int id) {
+        try {
+            repositorio.deleteById(id);
 
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
