@@ -15,16 +15,6 @@ public class ConsolaService {
         return (ArrayList<Consola>) controller.findAll();
     }
 
-    /*public ArrayList<Consola> getConsolaPorPlataforma(String plataforma){
-        ArrayList<Consola>peticion=new ArrayList<Consola>(); 
-        for (Consola c1 : controller.findAll()) {
-            if(c1.getPlataforma().equals(plataforma)){
-              peticion.add(c1);  
-            }
-        }
-        return peticion;
-    }*/
-
     public Consola saveConsola(Consola consola){
         return controller.save(consola);
     }
