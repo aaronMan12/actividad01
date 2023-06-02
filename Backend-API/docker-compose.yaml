@@ -1,0 +1,70 @@
+version: '3.3'
+services:
+  gadgets:
+    image: wacamolebit/gadgets
+    networks:
+    - network_apis
+    ports:
+    - 8080:8080
+    environment:
+      MYSQL_HOST: db
+    depends_on:
+    - gadgets_db
+    links:
+    - gadgets_db:db
+    restart: always
+  videojuegos:
+    image: wacamolebit/videojuegos
+    networks:
+    - network_apis
+    ports:
+    - 8081:8081
+    environment:
+      MYSQL_HOST: db
+    depends_on:
+    - videojuegos_db
+    links:
+    - videojuegos_db:db
+    restart: always
+  consolas:
+    image: wacamolebit/consolas
+    networks:
+    - network_apis
+    ports:
+    - 8082:8082
+    environment:
+      MYSQL_HOST: db
+    depends_on:
+    - consolas_db
+    links:
+    - consolas_db:db
+    restart: always
+  gadgets_db:
+    image: mariadb
+    networks:
+      - network_apis
+    environment:
+      MARIADB_ROOT_PASSWORD: 123456
+    volumes:
+    - ./apps/gadgets:/docker-entrypoint-initdb.d
+    - ./apps/gadgets/data:/var/lib/mysql
+  videojuegos_db:
+    image: mariadb
+    networks:
+      - network_apis
+    environment:
+      MARIADB_ROOT_PASSWORD: 123456
+    volumes:
+    - ./apps/videojuegos:/docker-entrypoint-initdb.d
+    - ./apps/videojuegos/data:/var/lib/mysql
+  consolas_db:
+    image: mariadb
+    networks:
+      - network_apis
+    environment:
+      MARIADB_ROOT_PASSWORD: 123456
+    volumes:
+    - ./apps/consolas:/docker-entrypoint-initdb.d
+    - ./apps/consolas/data:/var/lib/mysql
+networks:
+  network_apis:
