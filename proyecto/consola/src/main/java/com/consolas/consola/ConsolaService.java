@@ -8,24 +8,27 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ConsolaService {
-    
     @Autowired
     Controller controller;
+  
+
+    public Consola saveConsola(Consola consola){
+        return controller.save(consola);
+    }
+
     public ArrayList<Consola> getTodasConsolas(){
         return (ArrayList<Consola>) controller.findAll();
     }
 
-    /*public ArrayList<Consola> getConsolaPorPlataforma(String plataforma){
-        ArrayList<Consola>peticion=new ArrayList<Consola>(); 
-        for (Consola c1 : controller.findAll()) {
-            if(c1.getPlataforma().equals(plataforma)){
-              peticion.add(c1);  
-            }
-        }
-        return peticion;
-    }*/
+    public ArrayList<Consola> getForModel(String model){
+        return (ArrayList<Consola>) controller.findBymodelo(model);
+    }
 
-    public Consola saveConsola(Consola consola){
-        return controller.save(consola);
+    public ArrayList<Consola> getForPrice(int price){
+        return (ArrayList<Consola>) controller.findByprecio(price);
+    }
+
+    public ArrayList<Consola> getForPlataform(String plataform){
+        return (ArrayList<Consola>) controller.findByPlataforma(plataform);
     }
 }
