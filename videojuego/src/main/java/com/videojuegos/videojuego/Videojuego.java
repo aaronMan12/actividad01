@@ -7,68 +7,68 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "videojuegos")
-
-public class Videojuegos {
+public class Videojuego {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column
-    String nombre;
+    private String nombre;
     @Column
-    String plataforma;
+    private String plataforma;
     @Column
-    String marca;
+    private String formato;
     @Column
-    String formato;
+    private String desarrollador;
     @Column
-    String desarrollador;
-    @Column
-    int precio;
+    private double precio;
+
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
+
     public String getNombre() {
         return nombre;
     }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
     public String getPlataforma() {
         return plataforma;
     }
+
     public void setPlataforma(String plataforma) {
         this.plataforma = plataforma;
     }
-    public String getMarca() {
-        return marca;
-    }
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
+
     public String getFormato() {
         return formato;
     }
+
     public void setFormato(String formato) {
         this.formato = formato;
     }
+
     public String getDesarrollador() {
         return desarrollador;
     }
+
     public void setDesarrollador(String desarrollador) {
         this.desarrollador = desarrollador;
     }
-    public int getPrecio() {
+
+    public double getPrecio() {
         return precio;
     }
-    public void setPrecio(int precio) {
+
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
-
-
 }
