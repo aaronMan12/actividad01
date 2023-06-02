@@ -1,6 +1,5 @@
 package com.consolas.consola;
 
-
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -10,26 +9,25 @@ import org.springframework.stereotype.Service;
 @Service
 public class ConsolaService {
     @Autowired
-    Controller controller;
-  
+    private ConsolaRepository controller;
 
-    public Consola saveConsola(Consola consola){
+    public Consola saveConsola(Consola consola) {
         return controller.save(consola);
     }
 
-    public ArrayList<Consola> getTodasConsolas(){
+    public ArrayList<Consola> getTodasConsolas() {
         return (ArrayList<Consola>) controller.findAll();
     }
 
-    public ArrayList<Consola> getForModel(String model){
+    public ArrayList<Consola> getForModel(String model) {
         return (ArrayList<Consola>) controller.findBymodelo(model);
     }
 
-    public ArrayList<Consola> getForPrice(int price){
+    public ArrayList<Consola> getForPrice(int price) {
         return (ArrayList<Consola>) controller.findByprecio(price);
     }
 
-    public ArrayList<Consola> getForPlataform(String plataform){
+    public ArrayList<Consola> getForPlataform(String plataform) {
         return (ArrayList<Consola>) controller.findByPlataforma(plataform);
     }
 
@@ -47,15 +45,15 @@ public class ConsolaService {
                 consola.setModelo(request.getModelo());
             }
 
-            if (request.getPrecio()!=0) {
+            if (request.getPrecio() != 0) {
                 consola.setPrecio(request.getPrecio());
             }
 
-            if (request.getCantidad()!=0) {
-               consola.setCantidad(request.getCantidad());
+            if (request.getCantidad() != 0) {
+                consola.setCantidad(request.getCantidad());
             }
 
-           controller.save(consola);
+            controller.save(consola);
 
             return consola;
         }
@@ -72,6 +70,5 @@ public class ConsolaService {
             return false;
         }
     }
-
 
 }
