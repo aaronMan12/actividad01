@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,6 +49,21 @@ public class ConsolaApplication {
 	@PostMapping
 	public Consola saveConsola(@RequestBody Consola consola) {
 		return this.consolaService.saveConsola(consola);
+	}
+
+	@DeleteMapping("{id}")
+	public String deleteConsolabyId(@PathVariable int id) {
+		boolean ok = this.consolaService.deleteConsolaById(id);
+		if (ok) {
+			return "Consola eliminado con id " + id;
+		} else {
+			return "No se puedo elimnar la consola con id " + id;
+		}
+	}
+
+	@PutMapping("/Consola/{id}")
+	public Consola updateVideojuegosbyId(@RequestBody Consola request, @PathVariable int id) {
+		return this.consolaService.updateById(request, id);
 	}
 
 }
