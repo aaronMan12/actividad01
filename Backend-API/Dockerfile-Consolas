@@ -1,0 +1,4 @@
+FROM amazoncorretto:17
+COPY ./apps/ConsolasAPI.jar /apps/ConsolasAPI.jar
+EXPOSE 8080
+CMD ["java", "-jar", "/apps/ConsolasAPI.jar"]
