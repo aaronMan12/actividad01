@@ -31,18 +31,18 @@ public class ConsolaApplication {
 
 	}
 
-	@GetMapping("/Modelo/{modelo}")
-	public ArrayList<Consola> getConsolFM(@PathVariable("modelo") String modelo){
+	@GetMapping("/modelo/{modelo}")
+	public ArrayList<Consola> getConsolFM(@PathVariable("modelo") String modelo) {
 		return this.consolaService.getForModel(modelo);
 	}
 
 	@GetMapping("/Plataforma/{plataforma}")
-	public ArrayList<Consola> getConsolFP(@PathVariable("plataforma") String plataforma){
+	public ArrayList<Consola> getConsolFP(@PathVariable("plataforma") String plataforma) {
 		return this.consolaService.getForPlataform(plataforma);
 	}
 
-	@GetMapping("/Precio/{precio}")
-	public ArrayList<Consola> getConsolFPr(@PathVariable("precio") int precio){
+	@GetMapping("/precio/{precio}")
+	public ArrayList<Consola> getConsolFPr(@PathVariable("precio") int precio) {
 		return this.consolaService.getForPrice(precio);
 	}
 
@@ -61,7 +61,7 @@ public class ConsolaApplication {
 		}
 	}
 
-	@PutMapping("/Consola/{id}")
+	@PutMapping("/consola/{id}")
 	public Consola updateVideojuegosbyId(@RequestBody Consola request, @PathVariable int id) {
 		return this.consolaService.updateById(request, id);
 	}
