@@ -1,39 +1,57 @@
 version: '3.3'
 services:
   gadgets:
-    image: wacamolebit/gadgets
+    image: amazoncorretto:17
     networks:
     - network_apis
+    volumes:
+    - ./apps:/apps
     ports:
     - 8080:8080
     environment:
       MYSQL_HOST: db
+    command:
+    - java
+    - -jar
+    - /apps/GadgetAPI.jar
     depends_on:
     - gadgets_db
     links:
     - gadgets_db:db
     restart: always
   videojuegos:
-    image: wacamolebit/videojuegos
+    image: amazoncorretto:17
     networks:
     - network_apis
+    volumes:
+    - ./apps:/apps
     ports:
-    - 8081:8081
+    - 8081:8080
     environment:
       MYSQL_HOST: db
+    command:
+    - java
+    - -jar
+    - /apps/VideojuegosAPI.jar
     depends_on:
     - videojuegos_db
     links:
     - videojuegos_db:db
     restart: always
   consolas:
-    image: wacamolebit/consolas
+    image: amazoncorretto:17
     networks:
     - network_apis
+    volumes:
+    - ./apps:/apps
     ports:
-    - 8082:8082
+    - 8082:8080
     environment:
       MYSQL_HOST: db
+    command:
+    - java
+    - -jar
+    - /apps/ConsolasAPI.jar
     depends_on:
     - consolas_db
     links:
