@@ -25,6 +25,7 @@ import https.apis_uv_mx.gadgets.UpdateGadgetRequest;
 import https.apis_uv_mx.gadgets.UpdateGadgetResponse;
 import https.apis_uv_mx.gadgets.FindAllGadgetByDataResponse.AllByData;
 import https.apis_uv_mx.gadgets.FindAllGadgetResponse.AllData;
+import https.apis_uv_mx.gadgets.FindGadgetByIdResponse.AllById;
 
 @Endpoint
 public class GadgetEndpoint implements IGadgetEndpoint {
@@ -91,7 +92,7 @@ public class GadgetEndpoint implements IGadgetEndpoint {
     }
 
     @Override
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "UpdateGadgetResponse")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "UpdateGadgetRequest")
     @ResponsePayload
     public UpdateGadgetResponse updateGadget(@RequestPayload UpdateGadgetRequest request) {
         UpdateGadgetResponse response = new UpdateGadgetResponse();
@@ -152,7 +153,7 @@ public class GadgetEndpoint implements IGadgetEndpoint {
     @Override
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "FindGadgetByIdRequest")
     @ResponsePayload
-    public FindGadgetByIdResponse findGadgetById(FindGadgetByIdRequest request) {
+    public FindGadgetByIdResponse findGadgetById(@RequestPayload FindGadgetByIdRequest request) {
         FindGadgetByIdResponse response = new FindGadgetByIdResponse();
 
         try {
@@ -160,12 +161,17 @@ public class GadgetEndpoint implements IGadgetEndpoint {
 
             if (search.isPresent()) {
                 Gadget gadget = search.get();
-                response.getAllById().setId(gadget.getId());
-                response.getAllById().setBrand(gadget.getBrand());
-                response.getAllById().setModel(gadget.getModel());
-                response.getAllById().setPlatform(gadget.getPlatform());
-                response.getAllById().setPrice(gadget.getPrice());
-                response.getAllById().setType(gadget.getType());
+
+                AllById byId = new AllById();
+
+                byId.setId(gadget.getId());
+                byId.setBrand(gadget.getBrand());
+                byId.setModel(gadget.getModel());
+                byId.setPlatform(gadget.getPlatform());
+                byId.setPrice(gadget.getPrice());
+                byId.setType(gadget.getType());
+
+                response.setAllById(byId);
 
                 response.setCode(200);
                 response.setMessage("OK");
